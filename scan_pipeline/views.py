@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QFileDialog, QMessageBox
 from PyQt5.QtGui import QPixmap
+from PyQt5 import QtCore
 from PyQt5.QtCore import QThread, pyqtSignal
 from time import sleep
 from PIL import Image
@@ -80,7 +81,9 @@ class Window(QWidget, Ui_Form):
         else:
             self._stateFilesLoaded()
             self._currentFile = self._queue.pop(0)
-            self.imageLabel.setPixmap(QPixmap(str(self._currentFile)))
+            newImage = QPixmap(str(self._currentFile))
+            w, h = self.imageDisplay.width(), self.imageDisplay.height()
+            self.imageDisplay.setPixmap(newImage.scaled(w, h, QtCore.Qt.AspectRatioMode.KeepAspectRatio))
 
     def _renameFile(self):
         if self._outputFolder is not None:
