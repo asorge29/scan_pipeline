@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QFileDialog
+from PyQt5.QtWidgets import QWidget, QFileDialog, QMessageBox
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import QThread, pyqtSignal
 from time import sleep
@@ -107,3 +107,24 @@ class Window(QWidget, Ui_Form):
     
     def _stateFilesLoaded(self):
         self.newName.setEnabled(True)
+
+    def _validatePrefixChars(self):
+        #check for characters that are not allowed in file names
+        prefix = self.newName.text()
+        invalidCharacters = '"\/:*?"<>|'
+        for i in invalidCharacters:
+            if i in prefix:
+                self._spawnMessageBox(
+                    "Invalid Prefix",
+                    f"The prefix cannot contain the following characters: {invalidCharacters}"
+                )
+                self.newName.clear()
+                self.newName.setFocus(True)
+                break
+
+    def _spawnMessageBox(self, title, text):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        msg.exec_()
