@@ -1,11 +1,12 @@
 from PyQt5.QtWidgets import QWidget, QFileDialog, QMessageBox
 from PyQt5.QtGui import QPixmap
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QThread, pyqtSignal
 from time import sleep
 from PIL import Image
 from .ui.window import Ui_Form
 from pathlib import Path
+import sys, os
 
 class FileWatcher(QThread):
     folderChanged = pyqtSignal()
@@ -30,6 +31,12 @@ class Window(QWidget, Ui_Form):
         self._queue = []
         self._inputFolder = None
         self._outputFolder = None
+        try:
+            wd = sys._MEIPASS
+        except AttributeError:
+            wd = os.getcwd()
+        scanLogoPath = os.path.join(wd, "Scan_Pipeline_Logo.png")
+        self.setWindowIcon(QtGui.QIcon(scanLogoPath))
         self._setupUI()
         self._connectSignals()
         self._stateNoFiles()
