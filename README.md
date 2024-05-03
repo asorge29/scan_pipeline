@@ -2,7 +2,7 @@
 
 Scan Pipeline offers a streamlined solution for managing scanned documents, enabling you to efficiently rename, organize, and manipulate files as they are scanned into your system. Whether you're digitizing archives or handling daily paperwork, Scan Pipeline simplifies the process with its intuitive features.
 
-![Scan Pipeline Logo](scan_pipeline_logo.png)
+![Scan Pipeline Logo](Scan_Pipeline_Logo.png)
 
 ## Features
 
